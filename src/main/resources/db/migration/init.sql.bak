@@ -1,0 +1,56 @@
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+CREATE TABLE `customers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) DEFAULT (uuid()),
+  `name` varchar(150) NOT NULL,
+  `surname` varchar(150) DEFAULT NULL,
+  `created` date DEFAULT NULL,
+  `UPDATED` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid_UNIQUE` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Table structure for table `pets`
+--
+
+DROP TABLE IF EXISTS `pets`;
+CREATE TABLE `pets` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `customerUuid` varchar(36) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `species` varchar(200) DEFAULT NULL,
+  `gender` varchar(45) DEFAULT NULL,
+  `uuid` varchar(36) NOT NULL DEFAULT (uuid()),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid_UNIQUE` (`uuid`),
+  KEY `customerUuid` (`customerUuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Table structure for table `pethistory`
+--
+
+DROP TABLE IF EXISTS `pethistory`;
+CREATE TABLE `pethistory` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `text` longtext,
+  `petUuid` varchar(36) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_PetUuid` (`petUuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE pets
+ADD CONSTRAINT `FK_customerUuid` FOREIGN KEY (`customerUuid`) 
+REFERENCES `customers` (`uuid`) 
+ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE pethistory
+ADD CONSTRAINT `FK_PetUuid` FOREIGN KEY (`petUuid`) 
+REFERENCES `pets` (`uuid`) 
+ON DELETE CASCADE ON UPDATE RESTRICT;
