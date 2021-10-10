@@ -23,28 +23,27 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "customer")
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter
 public class Customer {
 	// Table description
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	@NotBlank(message = "Name is mandatory")
-	@Size(min = 1, max = 150, message = "About Me must be between 1 and 150 characters")
+	@Size(min = 1, max = 150, message = "Name must be between 1 and 150 characters")
 	String name;
-	@NotBlank(message = "Name is mandatory")
-	@Size(min = 1, max = 150, message = "About Me must be between 1 and 150 characters")
+	@NotBlank(message = "Surname is mandatory")
+	@Size(min = 1, max = 150, message = "Surname Me must be between 1 and 150 characters")
 	String surname;
 	@Email(message = "Email should be valid")
 	String email;
-	@Pattern(regexp = "^\\d{10,15}$") // 2111234567
+	@Pattern(regexp = "^\\d{10,15}$", message = "Phone must be 10 to 15 digits") // 2111234567
 	String phone;
-	@Pattern(regexp = "^\\d{10,15}$") // 6974777777
+	@Pattern(regexp = "^\\d{10,15}$", message = "Mobile phone must be 10 to 15 digits") // 6974777777
 	String mobilephone;
 	@Column(updatable=false)
 	Date created;
@@ -69,5 +68,6 @@ public class Customer {
 	public void onUpdate() {
 		this.updated = new Date();
 	}
+
 	
 }

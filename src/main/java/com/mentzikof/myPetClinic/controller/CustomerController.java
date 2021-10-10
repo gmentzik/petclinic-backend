@@ -9,11 +9,12 @@ import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import com.mentzikof.myPetClinic.exception.RecordNotFoundException;
 import com.mentzikof.myPetClinic.model.Customer;
 import com.mentzikof.myPetClinic.service.CustomerService;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/customers")
 public class CustomerController {
 
 	 @Autowired
@@ -24,12 +25,12 @@ public class CustomerController {
 	     return "Hello!!!";
 	 }
 	 
-	 @GetMapping("customers")
+	 @GetMapping("")
 	 public List<Customer> list() {
 	     return service.listAll();
 	 }
 	 
-	 @GetMapping("customers/{id}")
+	 @GetMapping("/{id}")
 	 public ResponseEntity<Customer> get(@PathVariable Integer id) {
 	     try {
 	    	 Customer customer = service.get(id);
@@ -39,7 +40,7 @@ public class CustomerController {
 	     }      
 	 }
 	 
-	 @PostMapping("customers")
+	 @PostMapping("")
 	 public ResponseEntity<?> add(@Valid @RequestBody Customer customer) {
 	     try {
 	    	 service.save(customer);
@@ -49,18 +50,18 @@ public class CustomerController {
 	     }
 	 }
 	 
-	 @PutMapping("customers/{id}")
+	 @PutMapping("/{id}")
 	 public ResponseEntity<?> update(@Valid @RequestBody Customer customer, @PathVariable Integer id) {
 	     try {
 	    	 Customer existCustomer = service.get(id);
 	         service.save(customer);
 	         return new ResponseEntity<Customer>(service.get(id), HttpStatus.OK);
 	     } catch (NoSuchElementException e) {
-	         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	         throw new RecordNotFoundException("Customer with id: " + id + " not found");
 	     }      
 	 }
 	 
-	 @DeleteMapping("customers/{id}")
+	 @DeleteMapping("/{id}")
 	 public void delete(@PathVariable Integer id) {
 	     service.delete(id);
 	 }
