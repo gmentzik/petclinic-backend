@@ -7,6 +7,9 @@ CREATE TABLE `customer` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   `surname` varchar(150) DEFAULT NULL,
+  `email` varchar(150) DEFAULT NULL ,
+  `phone` varchar(150) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `mobilephone` varchar(150) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
   `created` date DEFAULT NULL,
   `updated` date DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -35,10 +38,10 @@ CREATE TABLE `pet` (
 
 DROP TABLE IF EXISTS `pethistory`;
 CREATE TABLE `pethistory` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `pet_id` int NOT NULL,
   `date` varchar(200) NOT NULL,
-  `text` longtext,
+  `text` text,
   `created` date DEFAULT NULL,
   `updated` date DEFAULT NULL,
   PRIMARY KEY (`id`),

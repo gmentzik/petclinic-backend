@@ -17,16 +17,35 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "customer")
+@Getter @Setter @NoArgsConstructor
 public class Customer {
 	// Table description
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
+	@NotBlank(message = "Name is mandatory")
+	@Size(min = 1, max = 150, message = "About Me must be between 1 and 150 characters")
 	String name;
+	@NotBlank(message = "Name is mandatory")
+	@Size(min = 1, max = 150, message = "About Me must be between 1 and 150 characters")
 	String surname;
+	@Email(message = "Email should be valid")
+	String email;
+	@Pattern(regexp = "^\\d{10,15}$") // 2111234567
+	String phone;
+	@Pattern(regexp = "^\\d{10,15}$") // 6974777777
+	String mobilephone;
 	@Column(updatable=false)
 	Date created;
 	Date updated;
@@ -51,55 +70,4 @@ public class Customer {
 		this.updated = new Date();
 	}
 	
-	// Getters Setters
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getUpdated() {
-		return updated;
-	}
-
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
-
-	public List<Pet> getPets() {
-		return pets;
-	}
-
-	public void setPets(List<Pet> pets) {
-		this.pets = pets;
-	}
-
-
-
 }

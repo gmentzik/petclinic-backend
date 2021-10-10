@@ -2,9 +2,11 @@ package com.mentzikof.myPetClinic.controller;
 
 import java.util.*;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
- 
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import com.mentzikof.myPetClinic.model.Customer;
@@ -38,7 +40,7 @@ public class CustomerController {
 	 }
 	 
 	 @PostMapping("customers")
-	 public ResponseEntity<?> add(@RequestBody Customer customer) {
+	 public ResponseEntity<?> add(@Valid @RequestBody Customer customer) {
 	     try {
 	    	 service.save(customer);
 	         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
@@ -48,7 +50,7 @@ public class CustomerController {
 	 }
 	 
 	 @PutMapping("customers/{id}")
-	 public ResponseEntity<?> update(@RequestBody Customer customer, @PathVariable Integer id) {
+	 public ResponseEntity<?> update(@Valid @RequestBody Customer customer, @PathVariable Integer id) {
 	     try {
 	    	 Customer existCustomer = service.get(id);
 	         service.save(customer);
@@ -62,6 +64,7 @@ public class CustomerController {
 	 public void delete(@PathVariable Integer id) {
 	     service.delete(id);
 	 }
+	 
 }
 
 
