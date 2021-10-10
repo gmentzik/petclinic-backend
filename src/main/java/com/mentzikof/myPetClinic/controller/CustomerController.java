@@ -14,7 +14,7 @@ import com.mentzikof.myPetClinic.model.Customer;
 import com.mentzikof.myPetClinic.service.CustomerService;
 
 @RestController
-@RequestMapping("/customers")
+@RequestMapping("/customer")
 public class CustomerController {
 
 	 @Autowired
@@ -36,8 +36,8 @@ public class CustomerController {
 	    	 Customer customer = service.get(id);
 	         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
 	     } catch (NoSuchElementException e) {
-	         return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
-	     }      
+	         throw new RecordNotFoundException("Customer with id: " + id + " not found");
+	     }       
 	 }
 	 
 	 @PostMapping("")

@@ -1,5 +1,8 @@
 package com.mentzikof.myPetClinic.model;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,10 +20,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,8 +53,10 @@ public class Customer {
 	@Pattern(regexp = "^\\d{10,15}$", message = "Mobile phone must be 10 to 15 digits") // 6974777777
 	String mobilephone;
 	@Column(updatable=false)
-	Date created;
-	Date updated;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	LocalDate created;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	LocalDate updated;
 	
 	// Relations
     @OneToMany(
@@ -61,12 +70,14 @@ public class Customer {
 	// OnCreate, OnUpdate
 	@PrePersist
 	public void onCreate() {
-		this.created = new Date();
+		 Instant instant = Instant.now();   
+		 this.created = LocalDate.ofInstant(instant, ZoneOffset.UTC);
 	}
 	
 	@PreUpdate
 	public void onUpdate() {
-		this.updated = new Date();
+		 Instant instant = Instant.now();   
+		 this.updated = LocalDate.ofInstant(instant, ZoneOffset.UTC);
 	}
 
 	
