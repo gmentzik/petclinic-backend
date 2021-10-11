@@ -24,7 +24,7 @@ public class PetController {
 	@Autowired
 	private CustomerService customerService;
 
-	@GetMapping("/pethello")
+	@GetMapping("/pet/hello")
 	public String hello() {
 		return "Hello!!!";
 	}
@@ -78,7 +78,7 @@ public class PetController {
 			service.save(pet);
 			return new ResponseEntity<Pet>(service.get(id), HttpStatus.OK);
 		} catch (NoSuchElementException e) {
-			throw new RecordNotFoundException("Customer with id: " + id + " not found");
+			throw new RecordNotFoundException("Pet with id: " + id + " not found");
 		}
 	}
 

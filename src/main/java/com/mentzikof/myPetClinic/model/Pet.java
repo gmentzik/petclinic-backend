@@ -54,8 +54,9 @@ public class Pet {
             mappedBy = "pet",
             cascade = CascadeType.REMOVE,
             orphanRemoval = true,
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
         )
+    @JsonIgnore
     private List<PetHistory> history = new ArrayList<>();
 
 	// OnCreate, OnUpdate

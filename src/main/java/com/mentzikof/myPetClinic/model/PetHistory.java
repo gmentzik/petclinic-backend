@@ -18,6 +18,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Lob;
 
@@ -35,6 +36,7 @@ public class PetHistory {
 	int id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="pet_id")
+	@JsonIgnore
 	Pet pet;
 	String date;
 	@Lob
