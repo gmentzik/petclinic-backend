@@ -1,3 +1,7 @@
+-- Colletion for MySQL 8 should be set to utf8mb4_0900_ai_ci  for improved performance
+-- Colletion for MySQL <8 should be  utf8mb4_unicode_ci
+-- Consider to test also Colletion utf8mb4_general_ci
+
 --
 -- Table structure for table `customers`
 --
@@ -13,7 +17,7 @@ CREATE TABLE `customer` (
   `created` date DEFAULT NULL,
   `updated` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Table structure for table `pets`
@@ -30,7 +34,7 @@ CREATE TABLE `pet` (
   `updated` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY par_ind (customer_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Table structure for table `pethistory`
@@ -46,7 +50,7 @@ CREATE TABLE `pethistory` (
   `updated` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY par_ind (pet_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 ALTER TABLE pet
 ADD CONSTRAINT `FK_customerId` FOREIGN KEY (`customer_id`) 
