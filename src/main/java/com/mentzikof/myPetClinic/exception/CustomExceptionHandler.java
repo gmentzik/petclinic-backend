@@ -33,6 +33,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
         ErrorResponse error = new ErrorResponse("Record Not Found", details);
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+    
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public final ResponseEntity<Object> handleUserAlreadyExistsException(UsernameAlreadyExistsException ex, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        Map<String, String> errors = new LinkedHashMap<>();
+        errors.put("username", ex.getLocalizedMessage());
+        body.put("errors",errors);
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
  
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -48,6 +57,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
             errors.put(error.getField(), error.getDefaultMessage());
         }
         body.put("errors",errors);
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
     }
 }
