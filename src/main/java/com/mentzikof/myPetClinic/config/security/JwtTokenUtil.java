@@ -1,6 +1,9 @@
 package com.mentzikof.myPetClinic.config.security;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,8 +22,6 @@ public class JwtTokenUtil implements Serializable {
 
 	private static final long serialVersionUID = -2550185165626007488L;
 	
-	public static final long JWT_TOKEN_VALIDITY = 5*60*60;
-
 	@Value("${jwt.secret}")
 	private String secret;
 
@@ -61,9 +62,15 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
-
-		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000)).signWith(SignatureAlgorithm.HS512, secret).compact();
+		final LocalDateTime now = LocalDateTime.now();
+		final LocalDateTime expiryDate = now.plus(SecurityConstants.JWT_TOKEN_VALIDITY, ChronoUnit.SECONDS);
+		
+		System.out.println(" >>>>  Generated Token will expire " +expiryDate.toString());
+		
+		return Jwts.builder().setClaims(claims).setSubject(subject)
+				.setIssuedAt(Date.from(now.toInstant(ZoneOffset.UTC)))
+				.setExpiration(Date.from(expiryDate.toInstant(ZoneOffset.UTC)))
+				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 
 	public Boolean canTokenBeRefreshed(String token) {
