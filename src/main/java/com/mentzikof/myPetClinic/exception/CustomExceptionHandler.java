@@ -43,6 +43,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
  
+    @ExceptionHandler(ConfirmPasswordNotMatchException.class)
+    public final ResponseEntity<Object> handleConfirmPasswordNotMatchException(ConfirmPasswordNotMatchException ex, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        Map<String, String> errors = new LinkedHashMap<>();
+        errors.put("confirmPassword", ex.getLocalizedMessage());
+        body.put("errors",errors);
+        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+    }
+    
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
         MethodArgumentNotValidException ex, HttpHeaders headers, 
