@@ -1,4 +1,4 @@
-package com.mentzikof.myPetClinic.config;
+package com.mentzikof.myPetClinic.config.security;
 
 import java.io.IOException;
 import java.io.Serializable;

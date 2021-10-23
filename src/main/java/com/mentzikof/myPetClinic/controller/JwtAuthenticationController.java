@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mentzikof.myPetClinic.config.JwtTokenUtil;
+import com.mentzikof.myPetClinic.config.security.JwtTokenUtil;
 import com.mentzikof.myPetClinic.model.dto.JwtRequest;
 import com.mentzikof.myPetClinic.model.dto.JwtResponse;
 
