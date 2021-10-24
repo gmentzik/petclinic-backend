@@ -1,9 +1,6 @@
 package com.mentzikof.myPetClinic.config.security;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -26,11 +23,9 @@ public class JwtUserDetailsService implements UserDetailsService {
     private PetClinicUserRepository repo;
     
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public PetClinicUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		PetClinicUser user = repo.findByUsername(username);
 		if (user != null) {
-//			return new User("user", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-//			new ArrayList<>());
 			return new PetClinicUserDetails(user);		
 		} else {
 			throw new UsernameNotFoundException("User with username: " + username + " not found!");

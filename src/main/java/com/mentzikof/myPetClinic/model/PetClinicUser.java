@@ -37,7 +37,7 @@ public class PetClinicUser {
 	private boolean enabled;
     @Transient
     private String confirmPassword;
-    
+//    https://www.baeldung.com/jpa-many-to-many
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_roles",
