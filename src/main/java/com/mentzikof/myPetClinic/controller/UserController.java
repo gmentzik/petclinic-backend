@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mentzikof.myPetClinic.annotation.LogMethodException;
 import com.mentzikof.myPetClinic.annotation.LogMethodExecutionTime;
 import com.mentzikof.myPetClinic.annotation.LogMethodInputData;
+import com.mentzikof.myPetClinic.model.Customer;
 import com.mentzikof.myPetClinic.model.PetClinicUser;
 import com.mentzikof.myPetClinic.service.PetClinicUserService;
 
@@ -30,6 +31,14 @@ public class UserController {
 	 @GetMapping("hello")
 	 public String hello() {
 	     return "Hello!!!";
+	 }
+
+	 @LogMethodInputData
+	 @LogMethodExecutionTime
+	 @LogMethodException
+	 @GetMapping("")
+	 public List<PetClinicUser> listAllUsers() {
+	    	 return service.listAllUsers();
 	 }
 	 
 	 @LogMethodInputData

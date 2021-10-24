@@ -31,7 +31,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		if (user != null) {
 //			return new User("user", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
 //			new ArrayList<>());
-			return new PetClinicUserDetailsPrincipal(user);		
+			return new PetClinicUserDetails(user);		
 		} else {
 			throw new UsernameNotFoundException("User with username: " + username + " not found!");
 		}

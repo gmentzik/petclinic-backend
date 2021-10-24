@@ -1,18 +1,29 @@
 package com.mentzikof.myPetClinic.config.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.mentzikof.myPetClinic.model.PetClinicUser;
+import com.mentzikof.myPetClinic.model.Role;
 
-public class PetClinicUserDetailsPrincipal implements UserDetails {
 
-    private final PetClinicUser user;
+public class PetClinicUserDetails implements UserDetails {
 
-    public PetClinicUserDetailsPrincipal(PetClinicUser user) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5568243977099800450L;
+	
+	
+	private final PetClinicUser user;
+
+    public PetClinicUserDetails(PetClinicUser user) {
         this.user = user;
     }
 
@@ -43,7 +54,7 @@ public class PetClinicUserDetailsPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.isEnabled();
     }
 
     public PetClinicUser getPetClinicUser() {
@@ -52,6 +63,13 @@ public class PetClinicUserDetailsPrincipal implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return new HashSet<GrantedAuthority>();
+		Set<Role> roles = user.getRoles();
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		
+		for (Role role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role.getName()));
+		}
+		
+		return authorities;
 	}
 }

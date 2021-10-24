@@ -1,5 +1,7 @@
 package com.mentzikof.myPetClinic.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
  
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,4 +50,9 @@ public class PetClinicUserService {
 
             return repo.save(newUser);
     }
+
+	@LogMethodException  
+	public List<PetClinicUser> listAllUsers() {
+		return (List<PetClinicUser>) repo.findAll();
+	}
 }
