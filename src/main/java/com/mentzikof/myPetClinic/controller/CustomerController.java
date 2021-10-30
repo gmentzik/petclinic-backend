@@ -2,10 +2,13 @@ package com.mentzikof.myPetClinic.controller;
 
 import java.util.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,6 +80,9 @@ public class CustomerController {
 	 @LogMethodInputData
 	 @LogMethodExecutionTime
 	 @LogMethodException
+//	 @PreAuthorize("hasRole('ROLE_ADMIN')")
+//	 @PreAuthorize("hasAuthority('ADMIN')")
+	 @PreAuthorize("@securityService.hasRole(authentication.principal,'ADMIN')")
 	 @DeleteMapping("/{id}")
 	 public void delete(@PathVariable Integer id) {
 	     service.delete(id);
