@@ -1,4 +1,4 @@
-package com.mentzikof.myPetClinic.config.security;
+package com.mentzikof.myPetClinic.security.util;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

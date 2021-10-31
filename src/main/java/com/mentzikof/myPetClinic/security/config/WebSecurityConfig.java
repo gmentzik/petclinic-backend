@@ -1,4 +1,4 @@
-package com.mentzikof.myPetClinic.config.security;
+package com.mentzikof.myPetClinic.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

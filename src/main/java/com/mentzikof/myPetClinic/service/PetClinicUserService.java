@@ -1,6 +1,8 @@
 package com.mentzikof.myPetClinic.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
  
@@ -12,7 +14,9 @@ import com.mentzikof.myPetClinic.annotation.LogMethodException;
 import com.mentzikof.myPetClinic.exception.ConfirmPasswordNotMatchException;
 import com.mentzikof.myPetClinic.exception.UsernameAlreadyExistsException;
 import com.mentzikof.myPetClinic.model.PetClinicUser;
+import com.mentzikof.myPetClinic.model.Role;
 import com.mentzikof.myPetClinic.repositories.PetClinicUserRepository;
+import com.mentzikof.myPetClinic.repositories.RoleRepository;
 
 
 
@@ -22,6 +26,10 @@ public class PetClinicUserService {
 	
     @Autowired
     private PetClinicUserRepository repo;
+    
+    @Autowired
+    private RoleRepository userRoleRepo;
+    
     
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -43,10 +51,20 @@ public class PetClinicUserService {
             		passwordEncoder.encode(newUser.getPassword())
             );
             
-
-            
             // We don't persist or show the confirmPassword
             newUser.setConfirmPassword(null);
+            
+            // enable user
+            newUser.setEnabled(true);
+            
+            // Set user role to new user
+            Role role = userRoleRepo.findByName("USER");
+            if (role != null) {
+            	Set<Role> roleSet = new HashSet<Role>();
+            	roleSet.add(role);
+            	newUser.setRoles(roleSet);	
+            }
+            
 
             return repo.save(newUser);
     }

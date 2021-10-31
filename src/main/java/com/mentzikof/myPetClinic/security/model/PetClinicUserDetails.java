@@ -1,4 +1,4 @@
-package com.mentzikof.myPetClinic.config.security;
+package com.mentzikof.myPetClinic.security.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package com.mentzikof.myPetClinic.config.security;
+package com.mentzikof.myPetClinic.security.config;
 
 import java.io.IOException;
 
@@ -13,6 +13,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.mentzikof.myPetClinic.security.model.PetClinicUserDetails;
+import com.mentzikof.myPetClinic.security.service.JwtUserDetailsService;
+import com.mentzikof.myPetClinic.security.util.JwtTokenUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
