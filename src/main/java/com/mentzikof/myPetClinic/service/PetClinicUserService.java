@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
- 
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ public class PetClinicUserService {
 	@LogMethodException   
     public PetClinicUser save(PetClinicUser newUser) {
 
+		    String role = newUser.getNewUserRole();
         	newUser.setUsername(newUser.getUsername().trim());
         	if (repo.findByUsername(newUser.getUsername()) != null) 
         		throw new UsernameAlreadyExistsException("User '"+ newUser.getUsername() +"' already exists");
@@ -50,21 +52,18 @@ public class PetClinicUserService {
             newUser.setPassword(
             		passwordEncoder.encode(newUser.getPassword())
             );
-            
-            // We don't persist or show the confirmPassword
-            newUser.setConfirmPassword(null);
-            
+                       
             // enable user
             newUser.setEnabled(true);
             
-            // Set user role to new user
-            Role role = userRoleRepo.findByName("USER");
-            if (role != null) {
-            	Set<Role> roleSet = new HashSet<Role>();
-            	roleSet.add(role);
+            // Set user role to new user or requested role 
+            String findRole = StringUtils.isEmpty(role) ? "USER" : role;
+            Role userRole = userRoleRepo.findByName(findRole);
+        	Set<Role> roleSet = new HashSet<Role>();
+            if (userRole != null) {
+            	roleSet.add(userRole);
             	newUser.setRoles(roleSet);	
-            }
-            
+            }            
 
             return repo.save(newUser);
     }
