@@ -4,6 +4,9 @@ import java.util.List;
 import javax.transaction.Transactional;
  
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mentzikof.myPetClinic.model.Customer;
@@ -17,8 +20,11 @@ public class CustomerService {
     @Autowired
     private CustomerRepository repo;
     
-    public List<Customer> listAll() {
-        return repo.findAll();
+    public Page<Customer> listAll(int page, int size) {
+    	Page<Customer> pageCustomers;
+    	Pageable paging = PageRequest.of(page, size);
+    	pageCustomers = repo.findAll(paging);    	
+        return pageCustomers;
     }
      
     public void save(Customer customer) {

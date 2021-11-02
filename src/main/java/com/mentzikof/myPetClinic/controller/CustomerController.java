@@ -6,6 +6,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.data.domain.Page;
 import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,11 +33,20 @@ public class CustomerController {
 	     return "Hello!!!";
 	 }
 	 
-	 @LogMethodExecutionTime
-	 @GetMapping("")
-	 public List<Customer> list() {
-	     return service.listAll();
-	 }
+		@LogMethodExecutionTime
+		@GetMapping("")
+		public ResponseEntity<Map<String, Object>> list(@RequestParam(defaultValue = "0") int page,
+				@RequestParam(defaultValue = "3") int size) {
+
+			Page<Customer> pageData = service.listAll(page, size);
+			Map<String, Object> response = new HashMap<>();
+			response.put("customers", pageData.getContent());
+			response.put("currentPage", pageData.getNumber());
+			response.put("totalItems", pageData.getTotalElements());
+			response.put("totalPages", pageData.getTotalPages());
+
+			return ResponseEntity.ok(response);
+		}
 	 
 	 @LogMethodInputData
 	 @LogMethodExecutionTime
