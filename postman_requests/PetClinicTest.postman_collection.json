@@ -92,10 +92,16 @@
 			"name": "Create User",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNTgwNDQ5MywiaWF0IjoxNjM1ODA0MTkzfQ.UttyqCfrHAEEVWITUJS0mmtjiPjXSXnpYXIQfJiI9aOuXh6tTTwrR5qy8cDhnOodB9TqUG6Hv8Y9Zmo-NNuOng",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"password\"\r\n}",
+					"raw": "{\r\n    \"username\": \"admin2\",\r\n    \"password\": \"password\",\r\n    \"confirmPassword\":\"password\",\r\n    \"newUserRole\": \"ADMIN\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -110,6 +116,13 @@
 					"port": "8010",
 					"path": [
 						"user"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "ADMIN",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -157,9 +170,15 @@
 			"name": "Get All Customers",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNTg4NzE5OCwiaWF0IjoxNjM1ODg2ODk4fQ.rW3E6xGODDErcwz9v_vWdGocEN9xxN9euihOk16G4pgdEjYKzjKwp7dubBmGqM_isEKrZbKZwkyJqRjUhXL4uw",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8010/customer",
+					"raw": "http://localhost:8010/customer?page=0&size=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -167,6 +186,16 @@
 					"port": "8010",
 					"path": [
 						"customer"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						}
 					]
 				}
 			},
