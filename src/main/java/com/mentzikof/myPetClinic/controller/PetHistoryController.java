@@ -17,6 +17,7 @@ import com.mentzikof.myPetClinic.service.PetHistoryService;
 import com.mentzikof.myPetClinic.service.PetService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("")
 public class PetHistoryController {
 

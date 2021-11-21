@@ -21,6 +21,7 @@ import com.mentzikof.myPetClinic.model.Customer;
 import com.mentzikof.myPetClinic.service.CustomerService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/customer")
 public class CustomerController {
 

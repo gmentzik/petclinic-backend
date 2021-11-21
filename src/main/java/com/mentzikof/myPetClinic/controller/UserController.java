@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import com.mentzikof.myPetClinic.model.PetClinicUser;
 import com.mentzikof.myPetClinic.service.PetClinicUserService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 

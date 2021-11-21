@@ -15,6 +15,7 @@ import com.mentzikof.myPetClinic.service.CustomerService;
 import com.mentzikof.myPetClinic.service.PetService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("")
 public class PetController {
 
