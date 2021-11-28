@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.mentzikof.myPetClinic.security.model.PetClinicUserDetails;
 import com.mentzikof.myPetClinic.security.service.JwtUserDetailsService;
 import com.mentzikof.myPetClinic.security.util.JwtTokenUtil;
+import com.mentzikof.myPetClinic.security.util.SecurityConstants;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -38,7 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		String username = null;
 		String jwtToken = null;
 		// JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
-		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+		if (requestTokenHeader != null && requestTokenHeader.startsWith(SecurityConstants.JWT_TOKEN_PREFIX)) {
 			System.out.println("AUTHORIZATION HEADER RECEIVED: "+ requestTokenHeader);
 			jwtToken = requestTokenHeader.substring(7);
 			try {
