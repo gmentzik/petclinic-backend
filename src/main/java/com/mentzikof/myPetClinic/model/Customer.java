@@ -44,14 +44,32 @@ public class Customer {
 	@Size(min = 1, max = 150, message = "Name must be between 1 and 150 characters")
 	String name;
 	@NotBlank(message = "Surname is mandatory")
-	@Size(min = 1, max = 150, message = "Surname Me must be between 1 and 150 characters")
+	@Size(min = 1, max = 150, message = "Surname must be between 1 and 150 characters")
 	String surname;
+
+	@Size(min = 1, max = 150, message = "Address must be between 1 and 150 characters")
+	String address;
+	@Size(min = 1, max = 150, message = "Area must be between 1 and 150 characters")
+	String area;
+	@Size(min = 1, max = 25, message = "PO-BOX must be between 1 and 25 characters")
+	String pobox;
+	@Size(min = 1, max = 150, message = "Country must be between 1 and 150 characters")
+	String country;
+	
 	@Email(message = "Email should be valid")
 	String email;
 	@Pattern(regexp = "^\\d{10,15}$", message = "Phone must be 10 to 15 digits") // 2111234567
 	String phone;
 	@Pattern(regexp = "^\\d{10,15}$", message = "Mobile phone must be 10 to 15 digits") // 6974777777
 	String mobilephone;
+	
+	@Size(max = 600, message = "Note1 must not be more than 600 characters")
+	String note1;
+	@Size(max = 600, message = "Note2 must not be more than 600 characters")
+	String note2;
+	@Size(max = 600, message = "Note3 must not be more than 600 characters")
+	String note3;
+	
 	@Column(updatable=false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	LocalDate created;
