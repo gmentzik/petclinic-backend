@@ -1,7 +1,7 @@
 <!-- http://logback.qos.ch/manual/configuration.html -->
 <configuration>
 
-  <property name="LOG_FOLDER" value="/opt/logs" />
+  <property name="LOG_FOLDER" value="/tmp/logs" />
 
   <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>${LOG_FOLDER}/petCliniceError.log</file>
