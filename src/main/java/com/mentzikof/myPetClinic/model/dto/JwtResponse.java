@@ -16,10 +16,6 @@ public class JwtResponse implements Serializable {
 		this.roles = roles;
 	}
 
-	public String getToken() {
-		return this.jwttoken;
-	}
-
 	public List<String> getRoles() {
 		return roles;
 	}
@@ -35,4 +31,6 @@ public class JwtResponse implements Serializable {
 	public String getJwttoken() {
 		return jwttoken;
 	}
+
+
 }
