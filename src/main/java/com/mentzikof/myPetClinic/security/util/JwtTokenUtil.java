@@ -1,9 +1,11 @@
 package com.mentzikof.myPetClinic.security.util;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +50,11 @@ public class JwtTokenUtil implements Serializable {
 
 	private Boolean isTokenExpired(String token) {
 		final Date expiration = getExpirationDateFromToken(token);
-		return expiration.before(new Date());
+		System.out.println("Token expiration date: " + expiration);
+		final LocalDateTime now = LocalDateTime.now();
+		Date currentDate = Date.from(now.toInstant(ZoneOffset.UTC));
+		System.out.println("Current  UTC     date: " + currentDate);
+		return expiration.before(currentDate);
 	}
 
 	private Boolean ignoreTokenExpiration(String token) {
