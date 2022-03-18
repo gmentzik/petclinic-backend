@@ -59,13 +59,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDate.now());
-        body.put("status", status.value());
+        body.put("status", HttpStatus.UNPROCESSABLE_ENTITY);
 
         Map<String, String> errors = new LinkedHashMap<>();
         for(FieldError error: ex.getBindingResult().getFieldErrors()){
             errors.put(error.getField(), error.getDefaultMessage());
         }
         body.put("errors",errors);
-        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(body, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }
