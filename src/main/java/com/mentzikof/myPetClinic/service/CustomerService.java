@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.mentzikof.myPetClinic.model.Customer;
 import com.mentzikof.myPetClinic.repositories.CustomerRepository;
+import com.mentzikof.myPetClinic.repositories.specs.CustomerSpecs;
+import com.mentzikof.myPetClinic.repositories.specs.SearchCriteria;
+import com.mentzikof.myPetClinic.repositories.specs.SearchOperation;
 
 
 @Service
@@ -25,8 +28,13 @@ public class CustomerService {
     public Page<Customer> listAll(int page, int size) {
     	Page<Customer> pageCustomers;
     	Pageable paging = PageRequest.of(page, size);
-    	// Test   	
-    	pageCustomers = repo.findAll(CustomerSpecs.getCustomerByNameSpec(null),paging);    	
+    	// Test   	    	
+//    	pageCustomers = repo.findAll(CustomerSpecs.getCustomerByCriteria(null),paging);
+    	CustomerSpecs customerSpecs = new CustomerSpecs();
+    	customerSpecs.add(new SearchCriteria("name", "ΓΙΩ", SearchOperation.MATCH));
+    	customerSpecs.add(new SearchCriteria("surname", "ΜΕ", SearchOperation.MATCH));
+    	customerSpecs.printCriteria();
+    	pageCustomers = repo.findAll(customerSpecs,paging);
         return pageCustomers;
     }
      
