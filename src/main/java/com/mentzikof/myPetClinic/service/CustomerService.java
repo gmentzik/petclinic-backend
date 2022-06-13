@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.mentzikof.myPetClinic.model.Customer;
+import com.mentzikof.myPetClinic.model.Customer_;
 import com.mentzikof.myPetClinic.repositories.CustomerRepository;
 import com.mentzikof.myPetClinic.repositories.specs.CustomerSpecs;
 import com.mentzikof.myPetClinic.repositories.specs.SearchCriteria;
@@ -31,8 +31,8 @@ public class CustomerService {
     	// Test   	    	
 //    	pageCustomers = repo.findAll(CustomerSpecs.getCustomerByCriteria(null),paging);
     	CustomerSpecs customerSpecs = new CustomerSpecs();
-    	customerSpecs.add(new SearchCriteria("name", "ΓΙΩ", SearchOperation.MATCH));
-    	customerSpecs.add(new SearchCriteria("surname", "ΜΕ", SearchOperation.MATCH));
+    	customerSpecs.add(new SearchCriteria(Customer_.NAME, "ΓΙΩ", SearchOperation.MATCH));
+    	customerSpecs.add(new SearchCriteria(Customer_.SURNAME, "ΜΕ", SearchOperation.MATCH));
     	customerSpecs.printCriteria();
     	pageCustomers = repo.findAll(customerSpecs,paging);
         return pageCustomers;
