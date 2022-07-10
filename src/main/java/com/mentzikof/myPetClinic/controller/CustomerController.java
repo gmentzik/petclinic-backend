@@ -37,9 +37,13 @@ public class CustomerController {
 		@LogMethodExecutionTime
 		@GetMapping("")
 		public ResponseEntity<Map<String, Object>> list(@RequestParam(defaultValue = "0") int page,
-				@RequestParam(defaultValue = "3") int size) {
+				@RequestParam(defaultValue = "3") int size, 
+				@RequestParam(defaultValue = "") String name,
+				@RequestParam(defaultValue = "") String surname,
+				@RequestParam(defaultValue = "") String phone,
+				@RequestParam(defaultValue = "") String mobile) {
 
-			Page<Customer> pageData = service.listAll(page, size);
+			Page<Customer> pageData = service.listAll(page, size, name, surname, phone, mobile);
 			Map<String, Object> response = new HashMap<>();
 			response.put("customers", pageData.getContent());
 			response.put("currentPage", pageData.getNumber());

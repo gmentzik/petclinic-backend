@@ -8,17 +8,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
-import com.mentzikof.myPetClinic.model.Customer;
-import com.mentzikof.myPetClinic.model.Customer_;
 
-public class CustomerSpecs implements Specification<Customer> {
+public class GenericSpecs<T> implements Specification<T> {
 	private static final long serialVersionUID = 1L;
 	private List<SearchCriteria> list;
 
-	public CustomerSpecs() {
+	public GenericSpecs() {
 		this.list = new ArrayList<>();
 	}
 
@@ -33,15 +30,16 @@ public class CustomerSpecs implements Specification<Customer> {
 	}
 	
 	@Override
-	public Predicate toPredicate(Root<Customer> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+	public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 
 
 //				if (!StringUtils.isEmpty(name)) {
 //					predicates.add(criteriaBuilder.like(root.get(Customer_.name), "%" + name + "%"));
 //				}
-		
-		System.out.println("toPredicate");
-		printCriteria();
+
+//Needs work. 
+//Cannot understand 	criteriaBuilder.lower(root.get(criteria.getKey()))						
+
 		
 		List<Predicate> predicates = new ArrayList<>();
 
@@ -63,17 +61,6 @@ public class CustomerSpecs implements Specification<Customer> {
 			} else if (criteria.getOperation().equals(SearchOperation.EQUAL)) {
 				predicates.add(criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue()));
 			} else if (criteria.getOperation().equals(SearchOperation.MATCH)) {
-//				predicates.add(criteriaBuilder.like(root.get(Customer_.name), "%" + name + "%"));	
-// Needs work. 
-// Cannot understand 	criteriaBuilder.lower(root.get(criteria.getKey()))
-// Can I make Customer_.name work in Service to avoid having error with column names?
-// Can I make CustomerSpecs a generic class?
-				
-				
-				System.out.println("SearchOperation.MATCH");		
-				System.out.println(criteria.getKey());
-				System.out.println(criteriaBuilder.lower(root.get(criteria.getKey())));
-				System.out.println("%" + criteria.getValue().toString() + "%");
                 predicates.add(criteriaBuilder.like(
                 		criteriaBuilder.lower(root.get(criteria.getKey())),
                         "%" + criteria.getValue().toString().toUpperCase() + "%"));
