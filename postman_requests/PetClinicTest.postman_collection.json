@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "7c8b6fbe-d56e-4b4e-95df-103c7fc46fdd",
 		"name": "PetClinicTest",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17765857"
 	},
 	"item": [
 		{
@@ -168,6 +169,41 @@
 		},
 		{
 			"name": "Get All Customers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2MzUyMzE5NiwiaWF0IjoxNjYzNTIyODk2fQ.aacZgpLbEnZi7SrCEsRGMtH3-xjwuePqWatQ8VtOH-0wiz68VpE0KwTSnm6ghWpF670NqhIjiJFaCBClMEdGQg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8010/customer?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"customer"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Customers with query filter",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -509,6 +545,46 @@
 					"path": [
 						"customer",
 						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User copy?",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNTgwNDQ5MywiaWF0IjoxNjM1ODA0MTkzfQ.UttyqCfrHAEEVWITUJS0mmtjiPjXSXnpYXIQfJiI9aOuXh6tTTwrR5qy8cDhnOodB9TqUG6Hv8Y9Zmo-NNuOng",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin9\",\r\n    \"password\": \"password\",\r\n    \"confirmPassword\":\"password\",\r\n    \"newUserRole\": \"ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8010/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"user"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "ADMIN",
+							"disabled": true
+						}
 					]
 				}
 			},
