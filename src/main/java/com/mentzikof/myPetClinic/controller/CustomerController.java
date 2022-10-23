@@ -25,33 +25,33 @@ import com.mentzikof.myPetClinic.service.CustomerService;
 @RequestMapping("/customer")
 public class CustomerController {
 
-	 @Autowired
-	 private CustomerService service;
-	 
-	 @LogMethodExecutionTime
-	 @GetMapping("hello")
-	 public String hello() {
-	     return "Hello!!!";
-	 }
-	 
-		@LogMethodExecutionTime
-		@GetMapping("")
-		public ResponseEntity<Map<String, Object>> list(@RequestParam(defaultValue = "0") int page,
-				@RequestParam(defaultValue = "3") int size, 
-				@RequestParam(defaultValue = "") String name,
-				@RequestParam(defaultValue = "") String surname,
-				@RequestParam(defaultValue = "") String phone,
-				@RequestParam(defaultValue = "") String mobile) {
+	@Autowired
+	private CustomerService service;
 
-			Page<Customer> pageData = service.listAll(page, size, name, surname, phone, mobile);
-			Map<String, Object> response = new HashMap<>();
-			response.put("customers", pageData.getContent());
-			response.put("currentPage", pageData.getNumber());
-			response.put("totalItems", pageData.getTotalElements());
-			response.put("totalPages", pageData.getTotalPages());
+	@LogMethodExecutionTime
+	@GetMapping("hello")
+	public String hello() {
+		return "Hello!!!";
+	}
 
-			return ResponseEntity.ok(response);
-		}
+	@LogMethodExecutionTime
+	@GetMapping("")
+	public ResponseEntity<Map<String, Object>> list(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "3") int size, 
+			@RequestParam(defaultValue = "") String name,
+			@RequestParam(defaultValue = "") String surname, 
+			@RequestParam(defaultValue = "") String phone,
+			@RequestParam(defaultValue = "") String mobile) {
+
+		Page<Customer> pageData = service.listAll(page, size, name, surname, phone, mobile);
+		Map<String, Object> response = new HashMap<>();
+		response.put("customers", pageData.getContent());
+		response.put("currentPage", pageData.getNumber());
+		response.put("totalItems", pageData.getTotalElements());
+		response.put("totalPages", pageData.getTotalPages());
+
+		return ResponseEntity.ok(response);
+	}
 	 
 	 @LogMethodInputData
 	 @LogMethodExecutionTime

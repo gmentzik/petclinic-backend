@@ -63,7 +63,7 @@ public class GenericSpecs<T> implements Specification<T> {
 			} else if (criteria.getOperation().equals(SearchOperation.MATCH)) {
                 predicates.add(criteriaBuilder.like(
                 		criteriaBuilder.lower(root.get(criteria.getKey())),
-                        "%" + criteria.getValue().toString().toUpperCase() + "%"));
+                        "%" + criteria.getValue().toString().toLowerCase() + "%"));
 			} else if (criteria.getOperation().equals(SearchOperation.MATCH_END)) {
 				predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get(criteria.getKey())),
 						criteria.getValue().toString().toLowerCase() + "%"));
