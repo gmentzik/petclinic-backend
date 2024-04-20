@@ -81,7 +81,7 @@ public class Customer {
             mappedBy = "customer",
             cascade = CascadeType.REMOVE,
             orphanRemoval = true,
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
         )
     private List<Pet> pets = new ArrayList<>();
 

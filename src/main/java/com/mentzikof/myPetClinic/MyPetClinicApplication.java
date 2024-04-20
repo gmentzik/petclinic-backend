@@ -19,5 +19,10 @@ public class MyPetClinicApplication {
 		logger.debug("Starting");
 		SpringApplication.run(MyPetClinicApplication.class, args);
 	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 }

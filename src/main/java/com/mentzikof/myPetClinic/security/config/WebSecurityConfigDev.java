@@ -57,8 +57,8 @@ public class WebSecurityConfigDev extends WebSecurityConfigurerAdapter {
 				.authorizeRequests().antMatchers("*").permitAll();
 	}
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+//	@Bean
+//	public PasswordEncoder passwordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
 }
